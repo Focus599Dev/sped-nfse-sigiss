@@ -1,0 +1,74 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="DescricaoRps">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="ccm">
+          <xs:annotation>
+            <xs:documentation>You may enter the following 45 items in any order</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element type="xs:string" name="cnpj"/>
+        <xs:element type="xs:string" name="senha"/>
+        <xs:element type="xs:string" name="crc"/>
+        <xs:element type="xs:string" name="crc_estado"/>
+        <xs:element type="xs:string" name="aliquota_simples"/>
+        <xs:element type="xs:string" name="id_sis_legado"/>
+        <xs:element type="xs:string" name="servico"/>
+        <xs:element type="xs:string" name="situacao"/>
+        <xs:element type="xs:string" name="valor"/>
+        <xs:element type="xs:string" name="base"/>
+        <xs:element type="xs:string" name="descricaoNF"/>
+        <xs:element type="xs:string" name="tomador_tipo"/>
+        <xs:element type="xs:string" name="tomador_cnpj"/>
+        <xs:element type="xs:string" name="tomador_email"/>
+        <xs:element type="xs:string" name="tomador_ie"/>
+        <xs:element type="xs:string" name="tomador_im"/>
+        <xs:element type="xs:string" name="tomador_razao"/>
+        <xs:element type="xs:string" name="tomador_fantasia"/>
+        <xs:element type="xs:string" name="tomador_endereco"/>
+        <xs:element type="xs:string" name="tomador_numero"/>
+        <xs:element type="xs:string" name="tomador_complemento"/>
+        <xs:element type="xs:string" name="tomador_bairro"/>
+        <xs:element type="xs:string" name="tomador_CEP"/>
+        <xs:element type="xs:string" name="tomador_cod_cidade"/>
+        <xs:element type="xs:string" name="tomador_fone"/>
+        <xs:element type="xs:string" name="tomador_ramal"/>
+        <xs:element type="xs:string" name="tomador_fax"/>
+        <xs:element type="xs:string" name="rps_num"/>
+        <xs:element type="xs:string" name="rps_serie"/>
+        <xs:element type="xs:string" name="rps_dia"/>
+        <xs:element type="xs:string" name="rps_mes"/>
+        <xs:element type="xs:string" name="rps_ano"/>
+        <xs:element type="xs:string" name="outro_municipio"/>
+        <xs:element type="xs:string" name="cod_outro_municipio"/>
+        <xs:element type="xs:string" name="retencao_iss"/>
+        <xs:element type="xs:string" name="pis"/>
+        <xs:element type="xs:string" name="cofins"/>
+        <xs:element type="xs:string" name="inss"/>
+        <xs:element type="xs:string" name="irrf"/>
+        <xs:element type="xs:string" name="csll"/>
+        <xs:element type="xs:string" name="tipo_obra">
+          <xs:annotation>
+            <xs:documentation>Optional:</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element type="xs:string" name="dia_emissao">
+          <xs:annotation>
+            <xs:documentation>Optional:</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element type="xs:string" name="mes_emissao">
+          <xs:annotation>
+            <xs:documentation>Optional:</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element type="xs:string" name="ano_emissao">
+          <xs:annotation>
+            <xs:documentation>Optional:</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
