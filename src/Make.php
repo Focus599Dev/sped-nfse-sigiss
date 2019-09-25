@@ -13,13 +13,13 @@ class Make{
     public $dom;
 
     public $xml;
-    
+
     public function __construct() {
         
         $this->dom = new Dom('1.0', 'UTF-8');
 
         $this->dom->preserveWhiteSpace = false;
-        
+
         $this->dom->formatOutput = false;
     }
 
@@ -27,6 +27,9 @@ class Make{
 
         $root = $this->dom->createElement('DescricaoRps');
         $this->dom->appendChild($root);
+
+        $ccm = $this->dom->createElement('ccm', '1');
+        $root->appendChild($ccm);
 
         $cnpj = $this->dom->createElement('cnpj', ' dados teste ');
         $root->appendChild($cnpj);
@@ -162,7 +165,140 @@ class Make{
 
         $this->xml = $this->dom->saveXML();
 
-        echo $this->xml;
+        $pathXSD = '../schemes/GerarNota.xsd';
+
+        echo Make::checkXML($this->dom, realpath($pathXSD));
+    }
+
+    public function cancelarNota(){
+        
+        $root = $this->dom->createElement('DadosCancelaNota');
+        $this->dom->appendChild($root);
+
+        $ccm = $this->dom->createElement('ccm', '1');
+        $root->appendChild($ccm);
+
+        $cnpj = $this->dom->createElement('cnpj', ' dados teste ');
+        $root->appendChild($cnpj);
+
+        $senha = $this->dom->createElement('senha', ' dados teste ');
+        $root->appendChild($senha);
+
+        $nota = $this->dom->createElement('nota', '1');
+        $root->appendChild($nota);
+
+        $motivo = $this->dom->createElement('motivo', ' dados teste ');
+        $root->appendChild($motivo);
+
+        $email = $this->dom->createElement('email', ' dados teste ');
+        $root->appendChild($email);
+
+        $this->xml = $this->dom->saveXML();
+
+        $pathXSD = '../schemes/CancelarNota.xsd';
+
+        echo Make::checkXML($this->dom, realpath($pathXSD));
+    }
+
+    public function consultarNotaValida(){
+        
+        $root = $this->dom->createElement('DadosConsultaNota');
+        $this->dom->appendChild($root);
+
+        $nota = $this->dom->createElement('nota', ' dados teste ');
+        $root->appendChild($nota);
+
+        $serie = $this->dom->createElement('serie', ' dados teste ');
+        $root->appendChild($serie);
+
+        $valor = $this->dom->createElement('valor', ' dados teste ');
+        $root->appendChild($valor);
+
+        $prestadorCcm = $this->dom->createElement('prestador_ccm', ' dados teste ');
+        $root->appendChild($prestadorCcm);
+
+        $prestadorCnpj = $this->dom->createElement('prestador_cnpj', ' dados teste ');
+        $root->appendChild($prestadorCnpj);
+
+        $autenticidade = $this->dom->createElement('autenticidade', ' dados teste ');
+        $root->appendChild($autenticidade);
+
+        $this->xml = $this->dom->saveXML();
+
+        $pathXSD = '../schemes/ConsultarNotaValida.xsd';
+
+        echo Make::checkXML($this->dom, realpath($pathXSD));
+    }
+
+    public function consultarNotaPrestador(){
+
+        $root = $this->dom->createElement('DadosPrestador');
+        $this->dom->appendChild($root);
+
+        $ccm = $this->dom->createElement('ccm', ' dados teste ');
+        $root->appendChild($ccm);
+
+        $cnpj = $this->dom->createElement('cnpj', ' dados teste ');
+        $root->appendChild($cnpj);
+
+        $senha = $this->dom->createElement('senha', ' dados teste ');
+        $root->appendChild($senha);
+
+        $crc = $this->dom->createElement('crc', ' dados teste ');
+        $root->appendChild($crc);
+
+        $crcEstado = $this->dom->createElement('crc_estado', ' dados teste ');
+        $root->appendChild($crcEstado);
+
+        $aliquotaSimples = $this->dom->createElement('aliquota_simples', ' dados teste ');
+        $root->appendChild($aliquotaSimples);
+
+        $root = $this->dom->createElement('Nota');
+        $this->dom->appendChild($root);
+
+        $nota = $this->dom->createElement('nota', ' dados teste ');
+        $root->appendChild($nota);
+
+        $serie = $this->dom->createElement('serie', ' dados teste ');
+        $root->appendChild($serie);
+
+        $this->xml = $this->dom->saveXML();
+
+        $pathXSD = '../schemes/ConsultarNotaPrestador.xsd';
+
+        echo Make::checkXML($this->dom, realpath($pathXSD));
+    }
+
+    public function geraTeste(){
+
+        $root = $this->dom->createElement('dado', ' dados teste ');
+        $this->dom->appendChild($root);
+
+        $this->xml = $this->dom->saveXML();
+
+        $pathXSD = '../schemes/gerateste.xsd';
+
+        echo Make::checkXML($this->dom, realpath($pathXSD));
+    }
+
+    public function checkXML($xml, $pathXSD){
+
+        $ok = false;
+
+        try{
+
+            $this->dom->schemaValidate($pathXSD);
+
+            $ok = true;
+
+        } catch (\ErrorException $e){
+
+            $this->errorMessage = $e->getMessage();
+
+            var_dump($this->errorMessage);
+        }
+
+        return $ok;
     }
 
     public function getXML(){
@@ -170,7 +306,6 @@ class Make{
         if (empty($this->xml)) {
 
             $this->monta();
-
         }
 
         return $this->xml;
