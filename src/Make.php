@@ -45,6 +45,7 @@ class Make{
         $root->appendChild($senha);
         $senha->setAttribute('xsi:type', 'xsd:string');
 
+        // crc e crcEstado são opcionais
         $crc = $this->dom->createElement('crc', ' dados teste ');
         $root->appendChild($crc);
         $crc->setAttribute('xsi:type', 'xsd:string');
@@ -52,21 +53,30 @@ class Make{
         $crcEstado = $this->dom->createElement('crc_estado', ' dados teste ');
         $root->appendChild($crcEstado);
         $crcEstado->setAttribute('xsi:type', 'xsd:string');
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         $aliquotaSimples = $this->dom->createElement('aliquota_simples', ' dados teste ');
-        $root->appendChild($aliquotaSimples);
+        $root->appendChild($aliquotaSimples); // não sei o que é
         $aliquotaSimples->setAttribute('xsi:type', 'xsd:string');
 
+        //opcional
         $isSisLegado = $this->dom->createElement('id_sis_legado', ' dados teste ');
-        $root->appendChild($isSisLegado);
+        $root->appendChild($isSisLegado); //
         $isSisLegado->setAttribute('xsi:type', 'xsd:string');
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         $servico = $this->dom->createElement('servico', ' dados teste ');
         $root->appendChild($servico);
         $servico->setAttribute('xsi:type', 'xsd:int');
 
+        // Situação da nota fiscal eletrônica:
+        // tp – Tributada no prestador;
+        // tt – Tributada no tomador;
+        // is – Isenta;
+        // im – Imune;
+        // nt – Não tributada.
         $situacao = $this->dom->createElement('situacao', ' dados teste ');
-        $root->appendChild($situacao);
+        $root->appendChild($situacao); // não sei o que é
         $situacao->setAttribute('xsi:type', 'xsd:string');
 
         $valor = $this->dom->createElement('valor', ' dados teste ');
@@ -77,9 +87,11 @@ class Make{
         $root->appendChild($base);
         $base->setAttribute('xsi:type', 'xsd:string');
 
+        //opcional
         $descricaoNF = $this->dom->createElement('descricaoNF', ' dados teste ');
         $root->appendChild($descricaoNF);
         $descricaoNF->setAttribute('xsi:type', 'xsd:string');
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         $tomadorTipo = $this->dom->createElement('tomador_tipo', ' dados teste ');
         $root->appendChild($tomadorTipo);
@@ -93,9 +105,11 @@ class Make{
         $root->appendChild($tomadorEmail);
         $tomadorEmail->setAttribute('xsi:type', 'xsd:string');
 
+        //opcional
         $tomadorIe = $this->dom->createElement('tomador_ie', ' dados teste ');
         $root->appendChild($tomadorIe);
         $tomadorIe->setAttribute('xsi:type', 'xsd:string');
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         $tomadorIm = $this->dom->createElement('tomador_im', ' dados teste ');
         $root->appendChild($tomadorIm);
@@ -105,9 +119,11 @@ class Make{
         $root->appendChild($tomadorRazao);
         $tomadorRazao->setAttribute('xsi:type', 'xsd:string');
 
+        //opcional
         $tomadorFantasia = $this->dom->createElement('tomador_fantasia', ' dados teste ');
         $root->appendChild($tomadorFantasia);
         $tomadorFantasia->setAttribute('xsi:type', 'xsd:string');
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         $tomadorEndereco = $this->dom->createElement('tomador_endereco', ' dados teste ');
         $root->appendChild($tomadorEndereco);
@@ -117,9 +133,11 @@ class Make{
         $root->appendChild($tomadorNumero);
         $tomadorNumero->setAttribute('xsi:type', 'xsd:string');
 
+        //opcional
         $tomadorComplemento = $this->dom->createElement('tomador_complemento', ' dados teste ');
         $root->appendChild($tomadorComplemento);
         $tomadorComplemento->setAttribute('xsi:type', 'xsd:string');
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         $tomadorBairro = $this->dom->createElement('tomador_bairro', ' dados teste ');
         $root->appendChild($tomadorBairro);
@@ -133,17 +151,11 @@ class Make{
         $root->appendChild($tomadorCodCidade);
         $tomadorCodCidade->setAttribute('xsi:type', 'xsd:string');
 
+        //opcional
         $tomadorFone = $this->dom->createElement('tomador_fone', ' dados teste ');
         $root->appendChild($tomadorFone);
         $tomadorFone->setAttribute('xsi:type', 'xsd:string');
-
-        $tomadorRamal = $this->dom->createElement('tomador_ramal', ' dados teste ');
-        $root->appendChild($tomadorRamal);
-        $tomadorRamal->setAttribute('xsi:type', 'xsd:string');
-
-        $tomadorFax = $this->dom->createElement('tomador_fax', ' dados teste ');
-        $root->appendChild($tomadorFax);
-        $tomadorFax->setAttribute('xsi:type', 'xsd:string');
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         $rpsNum = $this->dom->createElement('rps_num', ' dados teste ');
         $root->appendChild($rpsNum);
@@ -165,14 +177,17 @@ class Make{
         $root->appendChild($rpsAno);
         $rpsAno->setAttribute('xsi:type', 'xsd:int');
 
+        //opcional
         $outroMunicipio = $this->dom->createElement('outro_municipio', ' dados teste ');
         $root->appendChild($outroMunicipio);
         $outroMunicipio->setAttribute('xsi:type', 'xsd:int');
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         $codOutroMunicipio = $this->dom->createElement('cod_outro_municipio', ' dados teste ');
-        $root->appendChild($codOutroMunicipio);
+        $root->appendChild($codOutroMunicipio); // Não sei o que é
         $codOutroMunicipio->setAttribute('xsi:type', 'xsd:int');
 
+        //retencao_iss, cofins, inss, irrf, cssl opcionais
         $retencaoIss = $this->dom->createElement('retencao_iss', ' dados teste ');
         $root->appendChild($retencaoIss);
         $retencaoIss->setAttribute('xsi:type', 'xsd:string');
@@ -196,7 +211,9 @@ class Make{
         $csll = $this->dom->createElement('csll', ' dados teste ');
         $root->appendChild($csll);
         $csll->setAttribute('xsi:type', 'xsd:string');
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+        //Dados opcionais abaixo
         $tipoObra = $this->dom->createElement('tipo_obra', ' dados teste ');
         $root->appendChild($tipoObra);
         $tipoObra->setAttribute('xsi:type', 'xsd:int');
