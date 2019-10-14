@@ -151,10 +151,18 @@ class Make{
         $root->appendChild($tomadorCodCidade);
         $tomadorCodCidade->setAttribute('xsi:type', 'xsd:string');
 
-        //opcional
+        //opcional fone, ramal e fax
         $tomadorFone = $this->dom->createElement('tomador_fone', ' dados teste ');
         $root->appendChild($tomadorFone);
         $tomadorFone->setAttribute('xsi:type', 'xsd:string');
+
+        $tomadorRamal = $this->dom->createElement('tomador_ramal', ' dados teste ');
+        $root->appendChild($tomadorRamal);
+        $tomadorRamal->setAttribute('xsi:type', 'xsd:string');
+
+        $tomadorFax = $this->dom->createElement('tomador_fax', ' dados teste ');
+        $root->appendChild($tomadorFax);
+        $tomadorFax->setAttribute('xsi:type', 'xsd:string');
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         $rpsNum = $this->dom->createElement('rps_num', ' dados teste ');
@@ -183,9 +191,11 @@ class Make{
         $outroMunicipio->setAttribute('xsi:type', 'xsd:int');
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+        //opcional, mas obrigatorio se tiver outro municipio marcado
         $codOutroMunicipio = $this->dom->createElement('cod_outro_municipio', ' dados teste ');
-        $root->appendChild($codOutroMunicipio); // Não sei o que é
+        $root->appendChild($codOutroMunicipio);
         $codOutroMunicipio->setAttribute('xsi:type', 'xsd:int');
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         //retencao_iss, cofins, inss, irrf, cssl opcionais
         $retencaoIss = $this->dom->createElement('retencao_iss', ' dados teste ');
