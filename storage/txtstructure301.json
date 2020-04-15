@@ -1,0 +1,11 @@
+{
+    "NOTAFISCAL":"NOTAFISCAL|1|",
+    "A" : "A|Ccm|Cnpj|Senha|",
+    "B" : "B|Crc|CrcEstado|",
+    "C" : "C|AliquotaSimples|IdSisLegado|",
+    "D" : "D|Servico|Situacao|Valor|Base|DescricaoNF|",
+    "E" : "E|Tipo|Cnpj|Email|InscricaoMunicipal|InscricaoEstadual|Razao|Fantasia|Endereco|Numero|Complemento|Bairro|Cep|CodCidade|Fone|Ramal|Fax|",
+    "F" : "F|RpsNum|RpsSerie|RpsDia|RpsMes|RpsAno|",
+    "G" : "G|OutroMunicipio|CodOutroMunicipio|",
+    "H" : "H|RetencaoIss|Pis|Cofins|Inss|Irrf|Csll"
+}
