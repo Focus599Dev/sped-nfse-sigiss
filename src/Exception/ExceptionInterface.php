@@ -2,6 +2,5 @@
 
 namespace NFePHP\NFSe\SIGISS\Exception;
 
-interface ExceptionInterface {
-
-}
+interface ExceptionInterface
+{ }

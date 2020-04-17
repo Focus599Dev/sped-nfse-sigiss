@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace NFePHP\NFSe\SIGISS;
 
@@ -6,35 +6,25 @@ use NFePHP\Common\Strings;
 use NFePHP\NFSe\SIGISS\Exception\DocumentsException;
 use NFePHP\NFSe\SIGISS\Factories\Parser;
 
-class Convert {
-
-	public $txt;
-
-    public $dados;
-    
-    public $numNFs = 1;
-    
-    public $notas;
-    
-    public $layouts = [];
-    
-    public $xmls = [];
-
-    public function __construct($txt = ''){
+class Convert
+{
+    public function __construct($txt = '')
+    {
 
         if (!empty($txt)) {
 
             $this->txt = trim($txt);
         }
     }
-    
-    public function toXml($txt = ''){
 
+    public function toXml($txt = '')
+    {
+        var_dump('chegou aqui carai');
         if (!empty($txt)) {
 
             $this->txt = trim($txt);
         }
-        
+
         $txt = Strings::removeSomeAlienCharsfromTxt($this->txt);
 
         if (!$this->isNFSe($txt)) {
@@ -55,7 +45,7 @@ class Convert {
             $version = $this->layouts[$i];
 
             $parser = new Parser($version);
-            
+
             $this->xmls[] = $parser->toXml($nota);
 
             $i++;
@@ -63,29 +53,31 @@ class Convert {
 
         return $this->xmls;
     }
-    
-    protected function isNFSe($txt){
-        
+
+    protected function isNFSe($txt)
+    {
+
         if (empty($txt)) {
 
             throw DocumentsException::wrongDocument(15, '');
         }
 
         $this->dados = explode("\n", $txt);
-        
-        $fields = explode('|', $this->dados[0]); 
-        
+
+        $fields = explode('|', $this->dados[0]);
+
         if ($fields[0] == 'NOTAFISCAL') {
-            
+
             $this->numNFs = (int) $fields[1];
-            
+
             return true;
         }
 
         return false;
     }
-    
-    protected function sliceNotas($array){
+
+    protected function sliceNotas($array)
+    {
 
         $aNotas = [];
 
@@ -116,7 +108,7 @@ class Convert {
 
                 if ($xCount > 0) {
 
-                    $resp[$xCount -1]['fim'] = $iCount;
+                    $resp[$xCount - 1]['fim'] = $iCount;
                 }
 
                 $xCount += 1;
@@ -125,19 +117,20 @@ class Convert {
             $iCount += 1;
         }
 
-        $resp[$xCount-1]['fim'] = $iCount;
+        $resp[$xCount - 1]['fim'] = $iCount;
 
         foreach ($resp as $marc) {
 
-            $length = $marc['fim']-$marc['init'];
+            $length = $marc['fim'] - $marc['init'];
 
             $aNotas[] = array_slice($array, $marc['init'], $length, false);
         }
 
         return $aNotas;
     }
-    
-    protected function checkQtdNFSe() {
+
+    protected function checkQtdNFSe()
+    {
 
         $num = count($this->notas);
 
@@ -146,26 +139,28 @@ class Convert {
             throw DocumentsException::wrongDocument(13, '');
         }
     }
-    
-    protected function validNotas() {
-        
+
+    protected function validNotas()
+    {
+
         foreach ($this->notas as $nota) {
 
             $this->loadLayouts($nota);
         }
     }
-    
-    protected function loadLayouts($nota) {
-        
+
+    protected function loadLayouts($nota)
+    {
+
         if (empty($nota)) {
-            
+
             throw DocumentsException::wrongDocument(17, '');
         }
 
         foreach ($nota as $campo) {
-            
+
             $fields = explode('|', $campo);
-            
+
             if ($fields[0] == 'A') {
 
                 $this->layouts[] = $fields[2];

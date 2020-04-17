@@ -2,9 +2,17 @@
     "name": "sped-nfse-sigiss",
     "type": "library",
     "description": "Api para comunicação com prefeituras que usando o padrão sigiss",
-    "keywords": ["nfs","sped","nfephp"],
+    "keywords": [
+        "nfs",
+        "sped",
+        "nfephp"
+    ],
     "homepage": "https://github.com/Focus599Dev/sped-nfse-sigiss",
-    "license": ["LGPL-3.0-or-later", "GPL-3.0-or-later", "MIT"],
+    "license": [
+        "LGPL-3.0-or-later",
+        "GPL-3.0-or-later",
+        "MIT"
+    ],
     "authors": [
         {
             "name": "Marlon Oliveira Barbosa",
@@ -14,8 +22,8 @@
         }
     ],
     "require": {
-        "php" : ">= 7.0",
-        "nfephp-org/sped-common" : "^5.0",
+        "php": ">= 7.0",
+        "nfephp-org/sped-common": "^5.0",
         "justinrainbow/json-schema": "^5.2"
     },
     "require-dev": {
@@ -27,12 +35,12 @@
     },
     "autoload": {
         "psr-4": {
-          "NFePHP\\NFSe\\GINFE\\": "src/"
-        } 
+            "NFePHP\\NFSe\\SIGISS\\": "src/"
+        }
     },
     "autoload-dev": {
         "psr-4": {
-            "NFePHP\\NFSe\\GINFE\\Tests\\": "tests/"
+            "NFePHP\\NFSe\\SIGISS\\Tests\\": "tests/"
         }
     },
     "scripts": {
