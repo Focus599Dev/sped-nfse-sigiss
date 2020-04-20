@@ -49,15 +49,9 @@ class Parser
 
         $std = $this->array2xml($nota);
 
-        $this->fixDates();
+        if ($this->make->getXML($this->std)) {
 
-        $this->fixPhoneNumbers();
-
-        $hash = $this->createSignature();
-
-        if ($this->make->getXML($this->std, $hash)) {
-
-            return $this->make->getXML($this->std, $hash);
+            return $this->make->getXML($this->std);
         }
 
         return null;

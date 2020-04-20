@@ -43,9 +43,9 @@ class Tools
         $xml = trim(preg_replace("/<\?xml.*?\?>/", "", $xml));
 
         $this->xml =
-            '<proc:' . $method . ' soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
-            <mensagemXml xsi:type="xsd:string"><![CDATA[' . $xml . ']]></mensagemXml>
-            </proc:' . $method . '>';
+            '<urn:' . $method . ' soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">'
+            . $xml .
+            '</urn:' . $method . '>';
 
         return $this->xml;
     }
@@ -53,13 +53,12 @@ class Tools
     public function envelopSoapXML($xml)
     {
         $this->xml =
-            '<soapenv:Envelope  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-                                xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-                                xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
-                                xmlns:proc="http://proces.wsnfe2.dsfnet.com.br">
-                <soapenv:Header/>
-                <soapenv:Body>' . $xml . '</soapenv:Body>
-            </soapenv:Envelope>';
+        '<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:sigiss_ws">
+            <soapenv:Header/>
+            <soapenv:Body>' 
+                . $xml . 
+            '</soapenv:Body>
+        </soapenv:Envelope>';
 
         return $this->xml;
     }
