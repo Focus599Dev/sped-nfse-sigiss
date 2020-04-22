@@ -15,7 +15,7 @@ class Soap
             "Pragma: no-cache",
             "SOAPAction: ;",
             "Content-length: " . strlen($xml),
-        ); //SOAPAction: your op URL
+        );
 
         $ch = curl_init();
 

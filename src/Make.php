@@ -41,14 +41,14 @@ class Make
 
     public function gerarNota($std)
     {
-        var_dump($std);
+
         $root = $this->dom->createElement('DescricaoRps');
         $this->dom->appendChild($root);
 
         $this->dom->addChild(
             $root,                          // pai    
             "ccm",                          // nome
-            $std->Numero,                      // valor
+            $std->NumeroLote,                      // valor
             true,                           // se é obrigatorio
             "CCM do prestador de serviço"   // descrição se der catch
         );
@@ -56,7 +56,7 @@ class Make
         $this->dom->addChild(
             $root,
             "cnpj",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "CNPJ do prestador de serviço"
         );
@@ -64,7 +64,7 @@ class Make
         $this->dom->addChild(
             $root,
             "senha",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Senha do prestador de serviço"
         );
@@ -72,7 +72,7 @@ class Make
         $this->dom->addChild(
             $root,
             "crc",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "CRC do contador do prestador de serviço"
         );
@@ -80,7 +80,7 @@ class Make
         $this->dom->addChild(
             $root,
             "crc_estado",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "CRC estado do contador do prestador de serviço"
         );
@@ -88,7 +88,7 @@ class Make
         $this->dom->addChild(
             $root,
             "aliquota_simples",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Alíquota do simples nacional"
         );
@@ -96,7 +96,7 @@ class Make
         $this->dom->addChild(
             $root,
             "id_sis_legado",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Código da nota no sistema legado do contribuinte."
         );
@@ -104,7 +104,7 @@ class Make
         $this->dom->addChild(
             $root,
             "servico",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Código do serviço utilizado na  emissão da nota fiscal da lei 116/03."
         );
@@ -112,7 +112,7 @@ class Make
         $this->dom->addChild(
             $root,
             "situacao",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Situação da nota fiscal eletrônica:  
                 tp – Tributada no prestador;
@@ -125,7 +125,7 @@ class Make
         $this->dom->addChild(
             $root,
             "valor",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Valor da nota fiscal. Ex:R$100,50➔ 100,5 Não utilize ponto (“.”)"
         );
@@ -133,7 +133,7 @@ class Make
         $this->dom->addChild(
             $root,
             "base",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Valor da base de calculo. Ex:R$100,50➔ 100,5 Não utilize ponto (“.”)"
         );
@@ -141,7 +141,7 @@ class Make
         $this->dom->addChild(
             $root,
             "descricaoNF",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Descrição do Serviço Prestado"
         );
@@ -149,7 +149,7 @@ class Make
         $this->dom->addChild(
             $root,
             "tomador_tipo",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Tipo do tomador que se quer escriturar:
                 1 – PFNI;
@@ -162,7 +162,7 @@ class Make
         $this->dom->addChild(
             $root,
             "tomador_cnpj",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "CPF ou CNPJ do tomador da nota  fiscal eletrônica"
         );
@@ -170,7 +170,7 @@ class Make
         $this->dom->addChild(
             $root,
             "tomador_email",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Email do tomador da nota."
         );
@@ -178,7 +178,7 @@ class Make
         $this->dom->addChild(
             $root,
             "tomador_ie",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Inscrição Estadual do tomador da nota."
         );
@@ -186,7 +186,7 @@ class Make
         $this->dom->addChild(
             $root,
             "tomador_im",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Inscrição municipal do tomador da nota."
         );
@@ -194,7 +194,7 @@ class Make
         $this->dom->addChild(
             $root,
             "tomador_razao",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Razão Social do tomador da nota"
         );
@@ -202,7 +202,7 @@ class Make
         $this->dom->addChild(
             $root,
             "tomador_fantasia",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Nome Fantasia do tomador da nota"
         );
@@ -210,7 +210,7 @@ class Make
         $this->dom->addChild(
             $root,
             "tomador_endereco",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Endereço do tomador da nota"
         );
@@ -218,15 +218,15 @@ class Make
         $this->dom->addChild(
             $root,
             "tomador_numero",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Número do endereço do tomador da nota"
         );
 
         $this->dom->addChild(
             $root,
-            "tomador_complemento ",
-            $std->ccm,
+            "tomador_complemento",
+            $std->NumeroLote,
             true,
             "Complemento do endereço do tomador da nota."
         );
@@ -234,7 +234,7 @@ class Make
         $this->dom->addChild(
             $root,
             "tomador_bairro",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Bairro do tomador da nota."
         );
@@ -242,7 +242,7 @@ class Make
         $this->dom->addChild(
             $root,
             "tomador_CEP",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "CEP do tomador da nota."
         );
@@ -250,7 +250,7 @@ class Make
         $this->dom->addChild(
             $root,
             "tomador_cod_cidade",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Código da cidade do tomador da nota."
         );
@@ -258,7 +258,7 @@ class Make
         $this->dom->addChild(
             $root,
             "tomador_fone",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Telefone do tomador da nota."
         );
@@ -266,7 +266,7 @@ class Make
         $this->dom->addChild(
             $root,
             "tomador_ramal",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Ramal do tomador da nota."
         );
@@ -274,7 +274,7 @@ class Make
         $this->dom->addChild(
             $root,
             "tomador_fax",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Fax do tomador da nota."
         );
@@ -282,7 +282,7 @@ class Make
         $this->dom->addChild(
             $root,
             "rps_num",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Número do recibo provisório de serviços."
         );
@@ -290,7 +290,7 @@ class Make
         $this->dom->addChild(
             $root,
             "rps_serie",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Série do recibo provisório de serviços."
         );
@@ -298,7 +298,7 @@ class Make
         $this->dom->addChild(
             $root,
             "rps_dia",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Dia em que foi emitido o recibo provisório de serviços."
         );
@@ -306,7 +306,7 @@ class Make
         $this->dom->addChild(
             $root,
             "rps_mes",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Mês em que foi emitido o recibo provisório de serviços."
         );
@@ -314,7 +314,7 @@ class Make
         $this->dom->addChild(
             $root,
             "rps_ano",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Ano em que foi emitido o recibo provisório de serviços."
         );
@@ -322,7 +322,7 @@ class Make
         $this->dom->addChild(
             $root,
             "outro_municipio",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Indica se o serviço foi prestado em outro município "
         );
@@ -330,7 +330,7 @@ class Make
         $this->dom->addChild(
             $root,
             "cod_outro_municipio",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Código do município em que foi prestado o serviço "
         );
@@ -338,7 +338,7 @@ class Make
         $this->dom->addChild(
             $root,
             "retencao_iss",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Valor da retenção de ISS"
         );
@@ -346,7 +346,7 @@ class Make
         $this->dom->addChild(
             $root,
             "pis",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Valor do PIS"
         );
@@ -354,7 +354,7 @@ class Make
         $this->dom->addChild(
             $root,
             "cofins",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Valor do COFINS"
         );
@@ -362,7 +362,7 @@ class Make
         $this->dom->addChild(
             $root,
             "inss",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Valor do INSS"
         );
@@ -370,7 +370,7 @@ class Make
         $this->dom->addChild(
             $root,
             "irrf",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Valor do IRRF"
         );
@@ -378,7 +378,7 @@ class Make
         $this->dom->addChild(
             $root,
             "csll",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Valor do CSLL"
         );
@@ -386,7 +386,7 @@ class Make
         $this->dom->addChild(
             $root,
             "tipo_obra",
-            $std->ccm,
+            $std->NumeroLote,
             false,
             "Tipo de Obra"
         );
@@ -394,7 +394,7 @@ class Make
         $this->dom->addChild(
             $root,
             "dia_emissao",
-            $std->ccm,
+            $std->NumeroLote,
             false,
             "Dia da emissão"
         );
@@ -402,7 +402,7 @@ class Make
         $this->dom->addChild(
             $root,
             "mes_emissao",
-            $std->ccm,
+            $std->NumeroLote,
             false,
             "Mês da emissão"
         );
@@ -410,7 +410,7 @@ class Make
         $this->dom->addChild(
             $root,
             "ano_emissao",
-            $std->ccm,
+            $std->NumeroLote,
             false,
             "Ano da emissão"
         );
@@ -428,8 +428,32 @@ class Make
 
         $this->dom->addChild(
             $root,
+            "ccm",
+            $std->NumeroLote,
+            true,
+            "CCM do prestador de serviço"
+        );
+
+        $this->dom->addChild(
+            $root,
+            "cnpj",
+            $std->NumeroLote,
+            true,
+            "CNPJ do prestador de serviço"
+        );
+
+        $this->dom->addChild(
+            $root,
+            "senha",
+            $std->NumeroLote,
+            true,
+            "Senha do prestador de serviço"
+        );
+
+        $this->dom->addChild(
+            $root,
             "nota",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Número da NFS-e que deseja que seja cancelada"
         );
@@ -437,7 +461,7 @@ class Make
         $this->dom->addChild(
             $root,
             "motivo",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Motivo do cancelamento da Nota"
         );
@@ -445,7 +469,7 @@ class Make
         $this->dom->addChild(
             $root,
             "email",
-            $std->ccm,
+            $std->NumeroLote,
             true,
             "Email para onde a notificação da nota cancelada será enviada"
         );
@@ -463,50 +487,69 @@ class Make
 
         $this->dom->addChild(
             $root,
-            "nota",
-            $std->ccm,
-            true,
-            "Número da NFS-e que deseja consultar"
-        );
-
-        $this->dom->addChild(
-            $root,
-            "serie",
-            $std->ccm,
-            true,
-            "Série presente na Nota fiscal eletrônica"
-        );
-
-        $this->dom->addChild(
-            $root,
-            "valor",
-            $std->ccm,
-            true,
-            "Valor da nota fiscal. Ex:R$100,50➔ 100,5 Não utilize ponto (“.”)"
-        );
-
-        $this->dom->addChild(
-            $root,
-            "prestador_ccm",
-            $std->ccm,
+            "ccm",
+            $std->NumeroLote,
             true,
             "CCM do prestador de serviço"
         );
 
         $this->dom->addChild(
             $root,
-            "prestador_cnpj",
-            $std->ccm,
+            "cnpj",
+            $std->NumeroLote,
             true,
             "CNPJ do prestador de serviço"
         );
 
         $this->dom->addChild(
             $root,
-            "autenticidade",
-            $std->ccm,
+            "senha",
+            $std->NumeroLote,
             true,
-            "Autenticidade presente na Nota fiscal eletrônica (hash)"
+            "Senha do prestador de serviço"
+        );
+
+        $this->dom->addChild(
+            $root,
+            "crc",
+            $std->NumeroLote,
+            true,
+            "CRC do contador do prestador de serviço"
+        );
+
+        $this->dom->addChild(
+            $root,
+            "crc_estado",
+            $std->NumeroLote,
+            true,
+            "CRC estado do contador do prestador de serviço"
+        );
+
+        $this->dom->addChild(
+            $root,
+            "aliquota_simples",
+            $std->NumeroLote,
+            true,
+            "Alíquota do simples nacional"
+        );
+
+        $root2 = $this->dom->createElement('Nota');
+        $this->dom->appendChild($root2);
+
+        $this->dom->addChild(
+            $root2,
+            "nota",
+            $std->NumeroLote,
+            true,
+            "Numero da nota ?"
+        );
+
+        $this->dom->addChild(
+            $root2,
+            "serie",
+            $std->NumeroLote,
+            true,
+            "Serie da nota ?"
         );
 
         $this->xml = $this->dom->saveXML();
@@ -516,14 +559,7 @@ class Make
 
     public function geraTeste()
     {
-        $xml = '<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:sigiss_ws">
-                    <soapenv:Header/>
-                    <soapenv:Body>
-                       <urn:gerateste soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
-                          <dado xsi:type="xsd:int">1</dado>
-                       </urn:gerateste>
-                    </soapenv:Body>
-                </soapenv:Envelope>';
+        $xml = '<dado>1</dado>';
 
         return $xml;
     }
