@@ -48,7 +48,7 @@ class Make
         $this->dom->addChild(
             $root,                          // pai    
             "ccm",                          // nome
-            $std->NumeroLote,                      // valor
+            $std->NumeroLote,               // valor
             true,                           // se é obrigatorio
             "CCM do prestador de serviço"   // descrição se der catch
         );

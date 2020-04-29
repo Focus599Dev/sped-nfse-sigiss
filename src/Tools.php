@@ -26,10 +26,8 @@ class Tools extends ToolsBase
         $request = $this->envelopSoapXML($request);
 
         $response = $this->sendRequest($request, $this->soapUrl);
-
-        $response = strip_tags($response);
-
-        $response = htmlspecialchars_decode($response);
+        echo $response;
+        $response = $this->removeStuffs($response);
 
         return $response;
     }

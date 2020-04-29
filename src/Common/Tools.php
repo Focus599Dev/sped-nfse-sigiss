@@ -24,7 +24,12 @@ class Tools
 
         $this->config = json_decode($configJson);
 
-        $this->soapUrl = 'https://barretos.sigiss.com.br/barretos/ws/sigiss_ws.php?wsdl';
+        if ($this->config->tpAmb == '1') {
+            $this->soapUrl = 'https://barretos.sigiss.com.br/barretos/ws/sigiss_ws.php?wsdl';
+        } else {
+            $this->soapUrl = 'https://barretos.sigiss.com.br/testebarretos/ws/sigiss_ws.php?wsdl';
+        }
+
     }
 
     protected function sendRequest($request, $soapUrl)
@@ -53,14 +58,31 @@ class Tools
     public function envelopSoapXML($xml)
     {
         $this->xml =
-        '<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:sigiss_ws">
+            '<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:sigiss_ws">
             <soapenv:Header/>
-            <soapenv:Body>' 
-                . $xml . 
+            <soapenv:Body>'
+            . $xml .
             '</soapenv:Body>
         </soapenv:Envelope>';
 
         return $this->xml;
+    }
+
+    public function removeStuffs($xml)
+    {
+
+        if (preg_match('/<SOAP-ENV:Body>/', $xml)) {
+
+            $tag = '<SOAP-ENV:Body>';
+            $xml = substr($xml, (strpos($xml, $tag) + strlen($tag)), strlen($xml));
+
+            $tag = '</SOAP-ENV:Body>';
+            $xml = substr($xml, 0, strpos($xml, $tag));
+        }
+
+        $xml = trim($xml);
+
+        return $xml;
     }
 
     public function getLastRequest()
