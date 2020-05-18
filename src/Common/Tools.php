@@ -4,6 +4,9 @@ namespace NFePHP\NFSe\SIGISS\Common;
 
 use NFePHP\NFSe\SIGISS\Soap\Soap;
 use NFePHP\Common\Validator;
+use DOMDocument;
+use DOMNode;
+use DOMElement;
 
 class Tools
 {
@@ -29,7 +32,6 @@ class Tools
         } else {
             $this->soapUrl = 'https://barretos.sigiss.com.br/testebarretos/ws/sigiss_ws.php?wsdl';
         }
-
     }
 
     protected function sendRequest($request, $soapUrl)
@@ -104,5 +106,20 @@ class Tools
             $body,
             $schema
         );
+    }
+
+    protected function addPassword($request)
+    {
+        $dom = new DOMDocument('1.0', 'UTF-8');
+
+        $dom->loadXML($request, LIBXML_NOBLANKS | LIBXML_NOEMPTYTAG);
+
+        $node = $dom->getElementsByTagName('senha')->item(0);
+
+        $node->nodeValue = $this->config->password;
+
+        $request = $dom->saveXML();
+
+        return $request;
     }
 }

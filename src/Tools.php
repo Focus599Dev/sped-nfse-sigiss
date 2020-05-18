@@ -25,8 +25,10 @@ class Tools extends ToolsBase
 
         $request = $this->envelopSoapXML($request);
 
+        $request = $this->addPassword($request);
+
         $response = $this->sendRequest($request, $this->soapUrl);
-        echo $response;
+
         $response = $this->removeStuffs($response);
 
         return $response;
