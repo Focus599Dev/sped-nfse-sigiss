@@ -3,11 +3,6 @@
 namespace NFePHP\NFSe\SIGISS;
 
 use NFePHP\Common\DOMImproved as Dom;
-use NFePHP\Common\Strings;
-use stdClass;
-use RuntimeException;
-use DOMElement;
-use DateTime;
 
 class Make
 {
@@ -26,27 +21,33 @@ class Make
         $this->dom->preserveWhiteSpace = false;
 
         $this->dom->formatOutput = false;
+
+        $this->DescricaoRps = $this->dom->createElement('DescricaoRps');
     }
 
-    public function getXML($std)
+    public function getXML()
     {
-
         if (empty($this->xml)) {
 
-            $this->gerarNota($std);
+            $this->monta();
         }
 
         return $this->xml;
     }
 
-    public function gerarNota($std)
+    public function monta()
     {
+        $this->dom->appendChild($this->DescricaoRps);
 
-        $root = $this->dom->createElement('DescricaoRps');
-        $this->dom->appendChild($root);
+        $this->xml = $this->dom->saveXML();
 
+        return $this->xml;
+    }
+
+    public function buildDescricaoRps($std)
+    {
         $this->dom->addChild(
-            $root,                          // pai    
+            $this->DescricaoRps,            // pai    
             "ccm",                          // nome
             $std->NumeroLote,               // valor
             true,                           // se é obrigatorio
@@ -54,7 +55,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "cnpj",
             $std->prestador->Cnpj,
             true,
@@ -62,7 +63,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "senha",
             $std->NumeroLote,
             true,
@@ -70,7 +71,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "crc",
             $std->NumeroLote,
             true,
@@ -78,7 +79,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "crc_estado",
             $std->NumeroLote,
             true,
@@ -86,7 +87,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "aliquota_simples",
             $std->Aliquota,
             true,
@@ -94,7 +95,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "id_sis_legado",
             $std->NumeroLote,
             true,
@@ -102,7 +103,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "servico",
             $std->Discriminacao,
             true,
@@ -110,7 +111,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "situacao",
             $std->NumeroLote,
             true,
@@ -123,7 +124,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "valor",
             $std->ValorServicos,
             true,
@@ -131,7 +132,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "base",
             $std->BaseCalculo,
             true,
@@ -139,7 +140,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "descricaoNF",
             $std->Discriminacao,
             true,
@@ -147,7 +148,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "tomador_tipo",
             $std->NumeroLote,
             true,
@@ -160,7 +161,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "tomador_cnpj",
             $std->tomador->Cnpj,
             true,
@@ -168,7 +169,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "tomador_email",
             $std->tomador->Email,
             true,
@@ -176,7 +177,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "tomador_ie",
             $std->NumeroLote,
             true,
@@ -184,7 +185,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "tomador_im",
             $std->tomador->InscricaoMunicipal,
             true,
@@ -192,7 +193,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "tomador_razao",
             $std->tomador->RazaoSocial,
             true,
@@ -200,7 +201,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "tomador_fantasia",
             $std->tomador->NomeFantasia,
             true,
@@ -208,7 +209,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "tomador_endereco",
             $std->tomador->Endereco,
             true,
@@ -216,7 +217,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "tomador_numero",
             $std->tomador->Numero,
             true,
@@ -224,7 +225,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "tomador_complemento",
             $std->tomador->Complemento,
             true,
@@ -232,7 +233,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "tomador_bairro",
             $std->tomador->Bairro,
             true,
@@ -240,7 +241,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "tomador_CEP",
             $std->tomador->Cep,
             true,
@@ -248,7 +249,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "tomador_cod_cidade",
             $std->tomador->CodigoMunicipio,
             true,
@@ -256,7 +257,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "tomador_fone",
             $std->tomador->Telefone,
             true,
@@ -264,7 +265,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "tomador_ramal",
             '',
             true,
@@ -272,7 +273,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "tomador_fax",
             '',
             true,
@@ -280,7 +281,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "rps_num",
             $std->NumeroLote,
             true,
@@ -288,7 +289,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "rps_serie",
             $std->Serie,
             true,
@@ -296,7 +297,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "rps_dia",
             $std->day,
             true,
@@ -304,7 +305,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "rps_mes",
             $std->month,
             true,
@@ -312,7 +313,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "rps_ano",
             $std->year,
             true,
@@ -320,7 +321,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "outro_municipio",
             $std->tomador->OutroMunicipio,
             true,
@@ -328,7 +329,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "cod_outro_municipio",
             $std->tomador->MunicipioFora,
             true,
@@ -336,7 +337,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "retencao_iss",
             $std->ValorIssRetido,
             true,
@@ -344,7 +345,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "pis",
             $std->ValorPis,
             true,
@@ -352,7 +353,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "cofins",
             $std->ValorCofins,
             true,
@@ -360,7 +361,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "inss",
             $std->ValorInss,
             true,
@@ -368,7 +369,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "irrf",
             $std->ValorIr,
             true,
@@ -376,7 +377,7 @@ class Make
         );
 
         $this->dom->addChild(
-            $root,
+            $this->DescricaoRps,
             "csll",
             $std->ValorCsll,
             true,

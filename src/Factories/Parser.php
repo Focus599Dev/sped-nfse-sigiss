@@ -3,9 +3,7 @@
 namespace NFePHP\NFSe\SIGISS\Factories;
 
 use NFePHP\NFSe\SIGISS\Make;
-use stdClass;
 use NFePHP\Common\Strings;
-use App\Http\Model\Uteis;
 
 class Parser
 {
@@ -29,13 +27,11 @@ class Parser
 
         $this->std = new \stdClass();
 
-        $this->std->tomador = new \stdClass();
+        $this->DescricaoRps = new \stdClass();
 
-        $this->std->prestador = new \stdClass();
+        $this->DescricaoRps->tomador = new \stdClass();
 
-        $this->std->servico = array();
-
-        $this->servicos = array();
+        $this->DescricaoRps->prestador = new \stdClass();
 
         $this->structure = json_decode(file_get_contents($path), true);
 
@@ -47,17 +43,12 @@ class Parser
     public function toXml($nota)
     {
 
-        $std = $this->array2xml($nota);
+        $this->array2xml($nota);
 
-        $this->fixValues();
-
-        $this->fixDate();
-
-        $this->outroMunicipio();
-
-        if ($this->make->getXML($this->std)) {
-
-            return $this->make->getXML($this->std);
+        if ($this->make->monta()) {
+            echo $this->make->getXML();
+            die;
+            return $this->make->getXML();
         }
 
         return null;
@@ -66,20 +57,25 @@ class Parser
     protected function array2xml($nota)
     {
 
-        $obj = [];
-
         foreach ($nota as $lin) {
 
             $fields = explode('|', $lin);
 
-            $struct = $this->structure[strtoupper($fields[0])];
+            if (empty($fields)) {
+                continue;
+            }
 
-            $std = $this->fieldsToStd($fields, $struct);
+            $metodo = strtolower(str_replace(' ', '', $fields[0])) . 'Entity';
 
-            $obj = (object) array_merge((array) $obj, (array) $std);
+            if (method_exists(__CLASS__, $metodo)) {
+
+                $struct = $this->structure[strtoupper($fields[0])];
+
+                $std = $this->fieldsToStd($fields, $struct);
+
+                $this->$metodo($std);
+            }
         }
-
-        return $obj;
     }
 
     protected function fieldsToStd($dfls, $struct)
@@ -88,6 +84,8 @@ class Parser
         $sfls = explode('|', $struct);
 
         $len = count($sfls) - 1;
+
+        $std = new \stdClass();
 
         for ($i = 1; $i < $len; $i++) {
 
@@ -100,50 +98,108 @@ class Parser
 
             if (!empty($name)) {
 
-                if ($dfls[0] == 'C') {
-
-                    $this->std->prestador->$name = Strings::replaceSpecialsChars($data);
-                } elseif ($dfls[0] == 'E' || $dfls[0] == 'E02') {
-
-                    $this->std->tomador->$name = Strings::replaceSpecialsChars($data);
-                } else {
-
-                    $this->std->$name = Strings::replaceSpecialsChars($data);
-                }
+                $std->$name = Strings::replaceSpecialsChars($data);
             }
         }
 
-        if ($dfls[0] == 'N') {
+        return $std;
+    }
 
-            $this->servicos[] = $dfls;
+    private function aEntity($std)
+    {
+        $this->DescricaoRps = (object) array_merge((array) $this->DescricaoRps, (array) $std);
+    }
 
-            $this->std->servico = $this->servicos;
+    private function bEntity($std)
+    {
+        $this->DescricaoRps = (object) array_merge((array) $this->DescricaoRps, (array) $std);
+    }
+
+    private function cEntity($std)
+    {
+        $this->DescricaoRps->prestador = (object) array_merge((array) $this->DescricaoRps->prestador, (array) $std);
+    }
+
+    private function eEntity($std)
+    {
+        $this->DescricaoRps->tomador = (object) array_merge((array) $this->DescricaoRps->tomador, (array) $std);
+    }
+
+    private function e02Entity($std)
+    {
+        $this->DescricaoRps->tomador = (object) array_merge((array) $this->DescricaoRps->tomador, (array) $std);
+    }
+
+    private function fEntity($std)
+    {
+        $this->DescricaoRps = (object) array_merge((array) $this->DescricaoRps, (array) $std);
+    }
+
+    private function hEntity($std)
+    {
+        $this->DescricaoRps = (object) array_merge((array) $this->DescricaoRps, (array) $std);
+    }
+
+    private function h01Entity($std)
+    {
+        $this->DescricaoRps = (object) array_merge((array) $this->DescricaoRps, (array) $std);
+    }
+
+    private function mEntity($std)
+    {
+        $this->DescricaoRps = (object) array_merge((array) $this->DescricaoRps, (array) $std);
+    }
+
+    private function nEntity($std)
+    {
+        $this->DescricaoRps = (object) array_merge((array) $this->DescricaoRps, (array) $std);
+    }
+
+    private function wEntity($std)
+    {
+        $this->DescricaoRps = (object) array_merge((array) $this->DescricaoRps, (array) $std);
+
+        if ($this->DescricaoRps->ValorServicos || $this->DescricaoRps->ValorLiquidoNfse || $this->DescricaoRps->BaseCalculo) {
+
+            $this->fixValues();
         }
 
-        return $this->std;
+        $this->fixDate();
+
+        $this->outroMunicipio();
+
+        $this->make->buildDescricaoRps($this->DescricaoRps);
     }
 
     public function fixValues()
     {
+        if ($this->DescricaoRps->ValorServicos) {
 
-        $this->std->ValorServicos = str_replace('.', ',', $this->std->ValorServicos);
+            $this->DescricaoRps->ValorServicos = str_replace('.', ',', $this->DescricaoRps->ValorServicos);
+        }
 
-        $this->std->ValorLiquidoNfse =  str_replace('.', ',', $this->std->ValorLiquidoNfse);
+        if ($this->DescricaoRps->ValorLiquidoNfse) {
 
-        $this->std->BaseCalculo =  str_replace('.', ',', $this->std->BaseCalculo);
+            $this->DescricaoRps->ValorLiquidoNfse =  str_replace('.', ',', $this->DescricaoRps->ValorLiquidoNfse);
+        }
+
+        if ($this->DescricaoRps->BaseCalculo) {
+
+            $this->DescricaoRps->BaseCalculo =  str_replace('.', ',', $this->DescricaoRps->BaseCalculo);
+        }
     }
 
     public function fixDate()
     {
-        $this->std->day = substr($this->std->DataEmissao, 8, 2);
-        $this->std->month = substr($this->std->DataEmissao, 5, 2);
-        $this->std->year = substr($this->std->DataEmissao, 0, 4);
+        $this->DescricaoRps->day = substr($this->DescricaoRps->DataEmissao, 8, 2);
+        $this->DescricaoRps->month = substr($this->DescricaoRps->DataEmissao, 5, 2);
+        $this->DescricaoRps->year = substr($this->DescricaoRps->DataEmissao, 0, 4);
     }
 
     public function outroMunicipio()
     {
-        if ($this->std->tomador->MunicipioFora) {
-            $this->std->tomador->OutroMunicipio = 1;
+        if ($this->DescricaoRps->tomador->MunicipioFora) {
+            $this->DescricaoRps->tomador->OutroMunicipio = 1;
         }
     }
 }
