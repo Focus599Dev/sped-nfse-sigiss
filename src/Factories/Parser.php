@@ -46,8 +46,7 @@ class Parser
         $this->array2xml($nota);
 
         if ($this->make->monta()) {
-            echo $this->make->getXML();
-            die;
+
             return $this->make->getXML();
         }
 
@@ -147,6 +146,8 @@ class Parser
 
     private function mEntity($std)
     {
+        $std->Aliquota = substr($std->Aliquota, -1);
+
         $this->DescricaoRps = (object) array_merge((array) $this->DescricaoRps, (array) $std);
     }
 

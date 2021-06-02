@@ -46,10 +46,11 @@ class Make
 
     public function buildDescricaoRps($std)
     {
+
         $this->dom->addChild(
             $this->DescricaoRps,            // pai    
             "ccm",                          // nome
-            $std->NumeroLote,               // valor
+            $std->CCMPrestador,               // valor
             true,                           // se é obrigatorio
             "CCM do prestador de serviço"   // descrição se der catch
         );
@@ -73,7 +74,7 @@ class Make
         $this->dom->addChild(
             $this->DescricaoRps,
             "crc",
-            $std->NumeroLote,
+            "",
             true,
             "CRC do contador do prestador de serviço"
         );
@@ -81,7 +82,7 @@ class Make
         $this->dom->addChild(
             $this->DescricaoRps,
             "crc_estado",
-            $std->NumeroLote,
+            "",
             true,
             "CRC estado do contador do prestador de serviço"
         );
@@ -97,7 +98,7 @@ class Make
         $this->dom->addChild(
             $this->DescricaoRps,
             "id_sis_legado",
-            $std->NumeroLote,
+            "",
             true,
             "Código da nota no sistema legado do contribuinte."
         );
@@ -105,7 +106,7 @@ class Make
         $this->dom->addChild(
             $this->DescricaoRps,
             "servico",
-            $std->Discriminacao,
+            $std->CodServico,
             true,
             "Código do serviço utilizado na emissão da nota fiscal da lei 116/03."
         );
@@ -113,7 +114,7 @@ class Make
         $this->dom->addChild(
             $this->DescricaoRps,
             "situacao",
-            $std->NumeroLote,
+            $std->SituacaoNFSE,
             true,
             "Situação da nota fiscal eletrônica:  
                 tp – Tributada no prestador;
@@ -150,7 +151,7 @@ class Make
         $this->dom->addChild(
             $this->DescricaoRps,
             "tomador_tipo",
-            $std->NumeroLote,
+            $std->tomador->TomadorTipo,
             true,
             "Tipo do tomador que se quer escriturar:
                 1 – PFNI;
@@ -179,7 +180,7 @@ class Make
         $this->dom->addChild(
             $this->DescricaoRps,
             "tomador_ie",
-            $std->NumeroLote,
+            $std->tomador->InscEstadualTomador,
             true,
             "Inscrição Estadual do tomador da nota."
         );
@@ -398,7 +399,7 @@ class Make
         $this->dom->addChild(
             $root,
             "ccm",
-            $std->NumeroLote,
+            $std->CCMPrestador,
             true,
             "CCM do prestador de serviço"
         );

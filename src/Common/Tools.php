@@ -7,6 +7,7 @@ use NFePHP\Common\Validator;
 use DOMDocument;
 use DOMNode;
 use DOMElement;
+use SimpleXMLElement;
 
 class Tools
 {
@@ -30,7 +31,7 @@ class Tools
         if ($this->config->tpAmb == '1') {
             $this->soapUrl = 'https://barretos.sigiss.com.br/barretos/ws/sigiss_ws.php?wsdl';
         } else {
-            $this->soapUrl = 'https://barretos.sigiss.com.br/testebarretos/ws/sigiss_ws.php?wsdl';
+            $this->soapUrl = 'https://testebarretos.sigiss.com.br/testebarretos/ws/sigiss_ws.php?wsdl';
         }
     }
 
@@ -81,6 +82,24 @@ class Tools
             $tag = '</SOAP-ENV:Body>';
             $xml = substr($xml, 0, strpos($xml, $tag));
         }
+
+        $xml = preg_replace('/( xmlns:ns1="urn:sigiss_ws")/', '', $xml);
+
+        $xml = preg_replace('/( xsi:type="tns:tcRetornoNota")/', '', $xml);
+
+        $xml = preg_replace('/( xsi:type="xsd:int")/', '', $xml);
+
+        $xml = preg_replace('/( xsi:type="SOAP-ENC:Array")/', '', $xml);
+
+        $xml = preg_replace('/( xsi:type="xsd:string")/', '', $xml);
+
+        $xml = preg_replace('/( SOAP-ENC:arrayType="tns:tcEstruturaDescricaoErros\[.\]")/', '', $xml);
+
+        $xml = preg_replace('/( xsi:type="tns:tcEstruturaDescricaoErros")/', '', $xml);
+
+        $xml = preg_replace('/( xsi:type="xsd:string")/', '', $xml);
+
+        $xml = preg_replace('/(ns1:)/', '', $xml);
 
         $xml = trim($xml);
 

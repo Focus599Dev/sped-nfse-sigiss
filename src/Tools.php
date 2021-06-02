@@ -31,6 +31,8 @@ class Tools extends ToolsBase
 
         $response = $this->removeStuffs($response);
 
+        $response = utf8_encode($response);
+
         return $response;
     }
 
