@@ -390,16 +390,15 @@ class Make
         return $this->xml;
     }
 
-    public function cancelarNota($std)
+    public function cancelarNota($std, $password)
     {
-
         $root = $this->dom->createElement('DadosCancelaNota');
         $this->dom->appendChild($root);
 
         $this->dom->addChild(
             $root,
             "ccm",
-            $std->CCMPrestador,
+            $std->ccm,
             true,
             "CCM do prestador de serviço"
         );
@@ -407,7 +406,7 @@ class Make
         $this->dom->addChild(
             $root,
             "cnpj",
-            $std->NumeroLote,
+            $std->cnpj,
             true,
             "CNPJ do prestador de serviço"
         );
@@ -415,7 +414,7 @@ class Make
         $this->dom->addChild(
             $root,
             "senha",
-            $std->NumeroLote,
+            $password,
             true,
             "Senha do prestador de serviço"
         );
@@ -423,7 +422,7 @@ class Make
         $this->dom->addChild(
             $root,
             "nota",
-            $std->NumeroLote,
+            $std->Numero,
             true,
             "Número da NFS-e que deseja que seja cancelada"
         );
@@ -431,7 +430,7 @@ class Make
         $this->dom->addChild(
             $root,
             "motivo",
-            $std->NumeroLote,
+            $std->observacao,
             true,
             "Motivo do cancelamento da Nota"
         );
@@ -439,7 +438,7 @@ class Make
         $this->dom->addChild(
             $root,
             "email",
-            $std->NumeroLote,
+            $std->email,
             true,
             "Email para onde a notificação da nota cancelada será enviada"
         );
@@ -449,16 +448,73 @@ class Make
         return $this->xml;
     }
 
+    public function consultarNotaP($std, $attributes)
+    {
+        $root = $this->dom->createElement('DadosConsultaNota');
+        $this->dom->appendChild($root);
+
+        $this->dom->addChild(
+            $root,
+            "nota",
+            $attributes['nfml_nnf'],
+            true,
+            "Número da NFS-e que deseja consultar."
+        );
+
+        $this->dom->addChild(
+            $root,
+            "serie",
+            $attributes['nfml_serie'],
+            true,
+            "Série presente na Nota fiscal eletrônica."
+        );
+
+        $this->dom->addChild(
+            $root,
+            "valor",
+            $attributes['nfml_total'],
+            true,
+            "Valor da nota fiscal. Ex:R$100,50 ➔ 100,5 - Não utilize ponto (“.”)"
+        );
+
+        $this->dom->addChild(
+            $root,
+            "prestador_ccm",
+            $std->ccm,
+            true,
+            "CCM do prestador de serviço"
+        );
+
+        $this->dom->addChild(
+            $root,
+            "prestador_cnpj",
+            $std->cnpj,
+            true,
+            "CNPJ do prestador de serviço"
+        );
+
+        $this->dom->addChild(
+            $root,
+            "autenticidade",
+            $attributes['nfml_code_verication'],
+            true,
+            "(hash). Autenticidade presente na Nota fiscal eletrônica"
+        );
+
+        $this->xml = $this->dom->saveXML();
+
+        return $this->xml;
+    }
+
     public function consultarNota($std)
     {
-
         $root = $this->dom->createElement('DadosPrestador');
         $this->dom->appendChild($root);
 
         $this->dom->addChild(
             $root,
             "ccm",
-            $std->NumeroLote,
+            $std->ccm,
             true,
             "CCM do prestador de serviço"
         );
@@ -466,7 +522,7 @@ class Make
         $this->dom->addChild(
             $root,
             "cnpj",
-            $std->NumeroLote,
+            $std->cnpj,
             true,
             "CNPJ do prestador de serviço"
         );
@@ -474,7 +530,7 @@ class Make
         $this->dom->addChild(
             $root,
             "senha",
-            $std->NumeroLote,
+            $std->senha,
             true,
             "Senha do prestador de serviço"
         );
@@ -482,7 +538,7 @@ class Make
         $this->dom->addChild(
             $root,
             "crc",
-            $std->NumeroLote,
+            '',
             true,
             "CRC do contador do prestador de serviço"
         );
@@ -490,7 +546,7 @@ class Make
         $this->dom->addChild(
             $root,
             "crc_estado",
-            $std->NumeroLote,
+            '',
             true,
             "CRC estado do contador do prestador de serviço"
         );
@@ -498,7 +554,7 @@ class Make
         $this->dom->addChild(
             $root,
             "aliquota_simples",
-            $std->NumeroLote,
+            $std->aliquota_simples,
             true,
             "Alíquota do simples nacional"
         );
@@ -509,7 +565,7 @@ class Make
         $this->dom->addChild(
             $root2,
             "nota",
-            $std->NumeroLote,
+            $std->rps_num,
             true,
             "Numero da nota ?"
         );
@@ -517,7 +573,7 @@ class Make
         $this->dom->addChild(
             $root2,
             "serie",
-            $std->NumeroLote,
+            $std->rps_serie,
             true,
             "Serie da nota ?"
         );

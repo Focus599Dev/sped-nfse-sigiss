@@ -85,6 +85,8 @@ class Tools
 
         $xml = preg_replace('/( xmlns:ns1="urn:sigiss_ws")/', '', $xml);
 
+        $xml = preg_replace('/( xsi:nil="true" xsi:type="tns:tcDadosNota")/', '', $xml);
+
         $xml = preg_replace('/( xsi:type="tns:tcRetornoNota")/', '', $xml);
 
         $xml = preg_replace('/( xsi:type="xsd:int")/', '', $xml);
@@ -140,5 +142,9 @@ class Tools
         $request = $dom->saveXML();
 
         return $request;
+    }
+
+    protected function getPassword(){
+        return $this->config->password;
     }
 }

@@ -10,6 +10,7 @@ class Tools extends ToolsBase
 {
     public function enviaRPS($xml)
     {
+        $servico = 'GerarNota';
 
         if (empty($xml)) {
             throw new InvalidArgumentException('$xml');
@@ -17,15 +18,13 @@ class Tools extends ToolsBase
 
         $xml = Strings::clearXmlString($xml);
 
-        $servico = 'GerarNota';
+        $request = $this->addPassword($xml);
 
-        $this->lastRequest = htmlspecialchars_decode($xml);
+        $this->lastRequest = htmlspecialchars_decode($request);
 
-        $request = $this->envelopXML($xml, $servico);
+        $request = $this->envelopXML($request, $servico);
 
         $request = $this->envelopSoapXML($request);
-
-        $request = $this->addPassword($request);
 
         $response = $this->sendRequest($request, $this->soapUrl);
 
@@ -40,7 +39,9 @@ class Tools extends ToolsBase
     {
         $make = new Make();
 
-        $xml = $make->cancelarNota($std);
+        $password = $this->getPassword();
+
+        $xml = $make->cancelarNota($std, $password);
 
         $xml = Strings::clearXmlString($xml);
 
@@ -52,16 +53,15 @@ class Tools extends ToolsBase
 
         $response = $this->sendRequest($request, $this->soapUrl);
 
-        $response = strip_tags($response);
+        $response = $this->removeStuffs($response);
 
-        $response = htmlspecialchars_decode($response);
+        $response = utf8_encode($response);
 
         return $response;
     }
 
     public function consultaSituacaoLoteRPS($std)
     {
-
         $make = new Make();
 
         $xml = $make->consultarNota($std);
@@ -76,14 +76,10 @@ class Tools extends ToolsBase
 
         $this->lastResponse = $this->sendRequest($request, $this->soapUrl);
 
+        $this->lastResponse = $this->removeStuffs($this->lastResponse);
+
         $this->lastResponse = htmlspecialchars_decode($this->lastResponse);
 
-        $this->lastResponse = substr($this->lastResponse, strpos($this->lastResponse, '<Mensagem>') + 10);
-
-        $this->lastResponse = substr($this->lastResponse, 0, strpos($this->lastResponse, '</Mensagem>'));
-
-        $auxResp = simplexml_load_string($this->lastResponse);
-
-        return $auxResp;
+        return $this->lastResponse;
     }
 }
