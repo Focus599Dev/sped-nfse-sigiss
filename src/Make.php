@@ -40,13 +40,13 @@ class Make
         $this->dom->appendChild($this->DescricaoRps);
 
         $this->xml = $this->dom->saveXML();
-
+        
         return $this->xml;
     }
-
+    
     public function buildDescricaoRps($std)
     {
-
+        
         $this->dom->addChild(
             $this->DescricaoRps,            // pai    
             "ccm",                          // nome
@@ -54,7 +54,7 @@ class Make
             true,                           // se é obrigatorio
             "CCM do prestador de serviço"   // descrição se der catch
         );
-
+        
         $this->dom->addChild(
             $this->DescricaoRps,
             "cnpj",
@@ -66,11 +66,12 @@ class Make
         $this->dom->addChild(
             $this->DescricaoRps,
             "senha",
-            $std->NumeroLote,
+            $std->Senha,
             true,
             "Senha do prestador de serviço"
         );
-
+        
+        
         $this->dom->addChild(
             $this->DescricaoRps,
             "crc",
@@ -78,7 +79,7 @@ class Make
             true,
             "CRC do contador do prestador de serviço"
         );
-
+        
         $this->dom->addChild(
             $this->DescricaoRps,
             "crc_estado",
@@ -90,8 +91,8 @@ class Make
         $this->dom->addChild(
             $this->DescricaoRps,
             "aliquota_simples",
-            $std->Aliquota,
-            true,
+            $std->AliquotaSimples,
+            false,
             "Alíquota do simples nacional"
         );
 
@@ -103,13 +104,6 @@ class Make
             "Código da nota no sistema legado do contribuinte."
         );
 
-        $this->dom->addChild(
-            $this->DescricaoRps,
-            "servico",
-            $std->CodServico,
-            true,
-            "Código do serviço utilizado na emissão da nota fiscal da lei 116/03."
-        );
 
         $this->dom->addChild(
             $this->DescricaoRps,
@@ -138,6 +132,15 @@ class Make
             $std->BaseCalculo,
             true,
             "Valor da base de calculo. Ex:R$100,50➔ 100,5 Não utilize ponto (“.”)"
+        );
+
+
+        $this->dom->addChild(
+            $this->DescricaoRps,
+            "servico",
+            $std->CodServico,
+            true,
+            "Código do serviço utilizado na emissão da nota fiscal da lei 116/03."
         );
 
         $this->dom->addChild(

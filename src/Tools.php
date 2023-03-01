@@ -11,17 +11,18 @@ class Tools extends ToolsBase
     public function enviaRPS($xml)
     {
         $servico = 'GerarNota';
-
+        
         if (empty($xml)) {
             throw new InvalidArgumentException('$xml');
         }
-
+        
         $xml = Strings::clearXmlString($xml);
-
+        
         $request = $this->addPassword($xml);
-
+        
         $this->lastRequest = htmlspecialchars_decode($request);
 
+       
         $request = $this->envelopXML($request, $servico);
 
         $request = $this->envelopSoapXML($request);

@@ -46,61 +46,62 @@ class Parser
         $this->array2xml($nota);
 
         if ($this->make->monta()) {
-
+            
             return $this->make->getXML();
         }
-
+        
         return null;
     }
-
+    
     protected function array2xml($nota)
     {
-
+        
         foreach ($nota as $lin) {
-
+            
             $fields = explode('|', $lin);
-
+            
+            
             if (empty($fields)) {
                 continue;
             }
-
+            
             $metodo = strtolower(str_replace(' ', '', $fields[0])) . 'Entity';
-
+            
             if (method_exists(__CLASS__, $metodo)) {
-
+                
                 $struct = $this->structure[strtoupper($fields[0])];
-
+                
                 $std = $this->fieldsToStd($fields, $struct);
-
+                
                 $this->$metodo($std);
             }
         }
     }
-
+    
     protected function fieldsToStd($dfls, $struct)
     {
-
+        
         $sfls = explode('|', $struct);
-
+        
         $len = count($sfls) - 1;
-
+        
         $std = new \stdClass();
-
-        for ($i = 1; $i < $len; $i++) {
-
+        
+        for ($i = 1; $i <= $len; $i++) {
+            
+           
             $name = $sfls[$i];
-
             if (isset($dfls[$i]))
-                $data = $dfls[$i];
+            $data = $dfls[$i];
             else
-                $data = '';
-
+            $data = '';
+            
             if (!empty($name)) {
-
+                
                 $std->$name = Strings::replaceSpecialsChars($data);
             }
         }
-
+        
         return $std;
     }
 
@@ -108,22 +109,22 @@ class Parser
     {
         $this->DescricaoRps = (object) array_merge((array) $this->DescricaoRps, (array) $std);
     }
-
+    
     private function bEntity($std)
     {
         $this->DescricaoRps = (object) array_merge((array) $this->DescricaoRps, (array) $std);
     }
-
+    
     private function cEntity($std)
     {
         $this->DescricaoRps->prestador = (object) array_merge((array) $this->DescricaoRps->prestador, (array) $std);
     }
-
+    
     private function eEntity($std)
     {
         $this->DescricaoRps->tomador = (object) array_merge((array) $this->DescricaoRps->tomador, (array) $std);
     }
-
+    
     private function e02Entity($std)
     {
         $this->DescricaoRps->tomador = (object) array_merge((array) $this->DescricaoRps->tomador, (array) $std);
@@ -201,6 +202,8 @@ class Parser
     {
         if ($this->DescricaoRps->tomador->MunicipioFora) {
             $this->DescricaoRps->tomador->OutroMunicipio = 1;
+        }else{
+            $this->DescricaoRps->tomador->OutroMunicipio = 0;
         }
     }
 }

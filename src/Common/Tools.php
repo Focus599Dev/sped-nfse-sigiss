@@ -135,10 +135,6 @@ class Tools
 
         $dom->loadXML($request, LIBXML_NOBLANKS | LIBXML_NOEMPTYTAG);
 
-        $node = $dom->getElementsByTagName('senha')->item(0);
-
-        $node->nodeValue = $this->config->password;
-
         $request = $dom->saveXML();
 
         return $request;
