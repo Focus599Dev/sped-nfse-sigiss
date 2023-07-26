@@ -508,7 +508,7 @@ class Make
         return $this->xml;
     }
 
-    public function consultarNota($std)
+    public function consultarNota($std, $nnf)
     {
         $root = $this->dom->createElement('DadosPrestador');
         $this->dom->appendChild($root);
@@ -567,7 +567,7 @@ class Make
         $this->dom->addChild(
             $root2,
             "nota",
-            $std->rps_num,
+            ltrim($nnf, '0'),
             true,
             "Numero da nota ?"
         );

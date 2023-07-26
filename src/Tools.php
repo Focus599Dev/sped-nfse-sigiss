@@ -61,11 +61,11 @@ class Tools extends ToolsBase
         return $response;
     }
 
-    public function consultaSituacaoLoteRPS($std)
+    public function consultaSituacaoLoteRPS($std, $nnf)
     {
         $make = new Make();
 
-        $xml = $make->consultarNota($std);
+        $xml = $make->consultarNota($std, $nnf);
 
         $xml = Strings::clearXmlString($xml);
 
@@ -83,4 +83,6 @@ class Tools extends ToolsBase
 
         return $this->lastResponse;
     }
+
+    
 }

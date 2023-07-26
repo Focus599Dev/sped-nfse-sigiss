@@ -8,6 +8,10 @@ use NFePHP\NFSe\SIGISS\Factories\Parser;
 
 class Convert
 {
+    private $txt = null;
+    
+    private $notas = null;
+
     public function __construct($txt = '')
     {
 

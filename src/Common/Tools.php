@@ -105,6 +105,8 @@ class Tools
 
         $xml = preg_replace('/( xsi:type="xsd:string")/', '', $xml);
 
+        $xml = preg_replace('/( xsi:type="tns:tcDadosNota")/', '', $xml);
+
         $xml = preg_replace('/(ns1:)/', '', $xml);
 
         $xml = trim($xml);
@@ -135,6 +137,7 @@ class Tools
 
     protected function addPassword($request)
     {
+
         $dom = new DOMDocument('1.0', 'UTF-8');
 
         $dom->loadXML($request, LIBXML_NOBLANKS | LIBXML_NOEMPTYTAG);
